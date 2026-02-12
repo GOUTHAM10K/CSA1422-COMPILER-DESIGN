@@ -1,0 +1,60 @@
+%{
+int nlines,nwords,nchars;
+%}
+
+%%
+\n {
+	nchars++;nlines++; 
+	}
+
+[^ \n\t]+ {nwords++, nchars=nchars+yyleng;}
+. {nchars++;}
+
+%%
+
+int yywrap(void) {}
+int main() 
+{
+ yylex();
+ printf("Lines = %d\nChars=%d\nWords=%d",nlines,nchars,nwords);
+
+ return 0;
+}	%{
+%}	 
+
+%%
+<INITIAL>[0-9]+ {printf("Integer\n");}
+<INITIAL>[0-9]+[.][0-9]+ {printf("Float\n");}
+<INITIAL>[A-Za-z0-9_]* {printf("Identifier\n");}
+<INITIAL>[^\n] {printf("Invalid\n");}
+
+%%
+
+int yywrap(){}
+
+int main()
+{
+printf("Enter String\n");
+yylex();
+return 0;
+}	%{
+#include<stdio.h>
+#include<string.h>
+int i = 0;
+%}
+ 
+%%
+([a-zA-Z0-9])*    {i++;} 
+  
+"\n" {printf("%d\n", i); i = 0;}
+%%
+  
+int yywrap(){}
+  
+int main()
+{   
+   printf("Enter the Sentence :"); 
+    yylex();
+  
+    return 0;
+}
