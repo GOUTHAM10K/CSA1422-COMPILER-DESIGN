@@ -4,7 +4,6 @@ int char_count = 0;
 int word_count = 0;
 int line_count = 0;
 %}
-
 %%
 
 "//".*                  ;   /* Ignore single line comments */
