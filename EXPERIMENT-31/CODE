@@ -1,0 +1,37 @@
+%{
+#include <stdio.h>
+#include <stdlib.h>
+
+int positive = 0;
+int negative = 0;
+%}
+
+digit   [0-9]
+
+%%
+
+"+"?{digit}+      { positive++; }
+
+"-"{digit}+       { negative++; }
+
+[ \t\n]           ;   /* Ignore spaces and new lines */
+
+.                 ;   /* Ignore other characters */
+
+%%
+
+int main()
+{
+    printf("Enter numbers:\n");
+    yylex();
+
+    printf("\nCount of Positive numbers = %d\n", positive);
+    printf("Count of Negative numbers = %d\n", negative);
+
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}
